@@ -67,7 +67,7 @@ module.exports.toLogEntryStream = function (options = {}) {
 
 module.exports.toStackdriverStream = function (options = {}) {
   const { logName, projectId, credentials } = options
-  if (!process.env.GOOGLE_APPLICATION_CREDENTIALS && !credentials) { throw Error('The "credentials" argument is missing') }
+  if ((!process.env.GOOGLE_APPLICATION_CREDENTIALS && !credentials) && !process.env.GAE_INSTANCE) { throw Error('The "credentials" argument is missing') }
   process.env.GOOGLE_APPLICATION_CREDENTIALS = (credentials === undefined) ? undefined : (process.env.GOOGLE_APPLICATION_CREDENTIALS || credentials)
   if (!projectId) { throw Error('The "projectId" argument is missing') }
   const opt = {
