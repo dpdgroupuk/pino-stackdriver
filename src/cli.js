@@ -15,8 +15,8 @@ function main () {
       try {
         if ((!process.env.GOOGLE_APPLICATION_CREDENTIALS && !credentials) && !process.env.GAE_INSTANCE) { throw Error('Credentials are missing.') }
         const _credentials = (process.env.GAE_INSTANCE && !credentials) ? undefined : (credentials || process.env.GOOGLE_APPLICATION_CREDENTIALS)
-        if ((!process.env.PROJECT_ID && !process.env.GOOGLE_PROJECT_ID) && !project) { throw Error('Project is missing.') }
-        const _project = project || process.env.PROJECT_ID || process.env.GOOGLE_PROJECT_ID;
+        if ((!process.env.PROJECT_ID && !process.env.GOOGLE_CLOUD_PROJECT) && !project) { throw Error('Project is missing.') }
+        const _project = project || process.env.PROJECT_ID || process.env.GOOGLE_CLOUD_PROJECT;
         const writeStream = stackdriver.createWriteStream({ credentials: _credentials, projectId: _project })
         process.stdin.pipe(writeStream)
         console.info('logging')
